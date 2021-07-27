@@ -1,58 +1,72 @@
-import javafx.application.Application;  
-import javafx.scene.Group;  
-import javafx.scene.Scene;  
-import javafx.scene.paint.Color;  
-import javafx.scene.shape.Rectangle;  
+import javafx.application.Application;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 public class ShapeDrafter extends Application{
-    public int Couleur;
-
-    public ShapeDrafter(){}
+    public static String m_Couleur;
+    public static Color m_color = Color.BLACK;
+    public static String m_shape;
+    public Rectangle rectangle = new Rectangle();
+    public Circle circle = new Circle();
     
-    public ShapeDrafter(int couleur){
-        Couleur = couleur;
+    public ShapeDrafter(){
+        
     }
-    public Color setColor(){
-        Color m_color = Color.BLACK;
-        switch(Couleur){
-            case 1: m_color = Color.GREEN;
+
+    public void setColor(String couleur){
+        m_Couleur = couleur;
+        switch(m_Couleur){
+            case "Vert": m_color = Color.GREEN;
             break;
-            case 2: m_color = Color.BLUE;
+            case "Bleu": m_color = Color.BLUE;
             break;
-            case 3: m_color = Color.RED;
+            case "Rouge": m_color = Color.RED;
             break;
             default: m_color = Color.YELLOW;
             break;
         }
+    }
+
+    public static Color getColor(){
         return m_color;
     }
-    public void start(Stage primaryStage)throws Exception{
-        
 
+    public void start(Stage primaryStage)throws Exception{
         primaryStage.setTitle("Rectangle Example");
         Group group = new Group(); //creating Group
-        Rectangle rect = new Rectangle(); //instantiating Rectangle
-        rect.setX(20); //setting the X coordinate of upper left //corner of rectangle
-        rect.setY(20); //setting the Y coordinate of upper left //corner of rectangle
-        rect.setWidth(100); //setting the width of rectangle
-        rect.setHeight(100); // setting the height of rectangle
-        rect.setFill(setColor());
-        group.getChildren().addAll(rect); //adding rectangle to the //group
-        Scene scene = new Scene(group,200,300,Color.GRAY);
+
+        drawRectangle();
+        drawCircle();
+
+        group.getChildren().addAll(rectangle,circle); //adding rectangle and the circle to the group
+        Scene scene = new Scene(group,500,400,Color.DARKGRAY);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
 
-    public void DrawRectangle(){
-        System.out.println("Printing a Rectangle. (DEBUGGING)");
+    public void drawRectangle(){
+        rectangle.setX(20); //setting the X coordinate of upper left corner of rectangle
+        rectangle.setY(20); //setting the Y coordinate of upper left corner of rectangle
+        rectangle.setWidth(100); //setting the width of rectangle
+        rectangle.setHeight(100); // setting the height of rectangle
+        rectangle.setFill(getColor());
+    }
+    public void drawCircle(){
+        circle.setCenterX(200);
+        circle.setCenterY(200);
+        circle.setRadius(100);
+        circle.setFill(getColor());
     }
 
-    public void DrawCircle(){
+    public void changeColor(){
 
     }
 
-    public static void main(String[] args) {  
+    public static void mainLaunch(String[] args) {  
         launch(args);  
     }  
 }
